@@ -1,7 +1,7 @@
 const path = require('path');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -34,7 +34,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
   resolve: {
-    extensions: ['.js'], // файлы по умолчанию
+    extensions: ['.js'],
     alias: { //import '../../../../core/Component' --> //import '@core/Component'
     '@': path.resolve(__dirname, 'src'),
     '@core': path.resolve(__dirname, 'src/core')
@@ -54,11 +54,12 @@ module.exports = {
         collapseWhitespace: isProd
       }
     }),
-    new CopyPlugin({
+    new CopyWebpackPlugin({
       patterns: [
         {
           from: path.resolve(__dirname, 'src/favicon.ico'),
-          to: path.resolve(__dirname, 'dist') },
+          to: path.resolve(__dirname, 'dist')
+        },
       ],
     }),
     new MiniCssExtractPlugin({
